@@ -6,7 +6,7 @@
     
     cl_doubleduck - [1/0] - Integrated doubleduck on SHIFT key, works faster than doubleduck script
     
-    cl_drawteams - [1/0] - Draws teamnames & scoresout of scoreboard, if teamplay mode, like in AG
+    cl_drawteams - [1/0] - Draws teamnames & scores out of scoreboard, if teamplay mode, like in AG
     
       cl_drawteamscores - [1/0] - Enable/disable scores in cl_drawteams
     
