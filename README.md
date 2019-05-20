@@ -24,6 +24,4 @@
   Unpack into your "valve" folder
 
   * Compilation instructions
-  Download HLSDK v2.3, then get cl_dll folder from "source_code" & copy it to "src_dll" folder, accept replace, now just open
-  
-  HLSDK v2.3 in VisualStudio & compile client part
+  Download HLSDK v2.3, then get cl_dll folder from "source_code" & copy it to "src_dll" folder, accept replace, now just open HLSDK v2.3 in VisualStudio & compile client part
