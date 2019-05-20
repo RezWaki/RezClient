@@ -18,6 +18,11 @@
     
     cl_specwh - [1/0] - WallHack for **SPECTATORS ONLY**, it woudln't work if you are NOT spectator now
 
+  * Installation instructions
+  Download latest RezClient version from https://github.com/RezWaki/RezClient/releases
+  
+  Unpack into your "valve" folder
+
   * Compilation instructions
   Download HLSDK v2.3, then get cl_dll folder from "source_code" & copy it to "src_dll" folder, accept replace, now just open
   
