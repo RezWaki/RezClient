@@ -1,5 +1,6 @@
 # RezClient
 *v1.0 beta*
+  RezClient is Half-Life client.dll oriented on multiplayer gaming
   * Commands:
     cl_autojump - [1/0] - Integrated autojump on SPACEBAR key 
     
@@ -16,3 +17,8 @@
     cl_scrbrd_r/g/b/a - [0-255]~[cl_scrbrd_r 255;cl_scrbrd_g 0;cl_scrbrd_b 0;cl_scrbrd_a 200] - Sets scoreboard background color
     
     cl_specwh - [1/0] - WallHack for **SPECTATORS ONLY**, it woudln't work if you are NOT spectator now
+
+  * Compilation instructions
+  Download HLSDK v2.3, then get cl_dll folder from "source_code" & copy it to "src_dll" folder, accept replace, now just open
+  
+  HLSDK v2.3 in VisualStudio & compile client part
