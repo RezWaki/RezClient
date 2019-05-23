@@ -4,6 +4,7 @@
   RezClient is Half-Life client.dll oriented on multiplayer gaming
   
   * Commands:
+  
   cl_autojump - [1/0] - Integrated autojump on SPACEBAR key
 
   cl_doubleduck - [1/0] - Integrated doubleduck on SHIFT key, works faster than doubleduck script
