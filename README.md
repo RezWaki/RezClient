@@ -1,6 +1,8 @@
 # RezClient
-*v1.0 beta*
+*v2.0*
+
   RezClient is Half-Life client.dll oriented on multiplayer gaming
+  
   * Commands:
   cl_autojump - [1/0] - Integrated autojump on SPACEBAR key
 
