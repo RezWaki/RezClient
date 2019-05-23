@@ -51,7 +51,7 @@ glVertex3f_t pglVertex3f = NULL;
 glEnable_t pglEnable = NULL;
 
 cl_entity_s* ent_, *_plr;
-model_s* plr_mdl;
+model_s* plr_mdl, * wpn_mdl;
 
 void APIENTRY Hooked_glBegin( GLenum mode ) {
 	ent_ = gEngfuncs.GetLocalPlayer();
@@ -1690,6 +1690,10 @@ void CStudioModelRenderer::StudioRenderFinal_Software( void )
 	IEngineStudio.RestoreRenderer();
 }
 
+cl_entity_s* loc_plr;
+wrect_t xhair_size;
+SpriteHandle_t spr;
+
 /*
 ====================
 StudioRenderFinal_Hardware
@@ -1698,6 +1702,22 @@ StudioRenderFinal_Hardware
 */
 void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 {
+	loc_plr = gEngfuncs.GetLocalPlayer();	
+	if(CVAR_GET_FLOAT("cl_newhands")){
+		gEngfuncs.GetViewModel()->origin.x = loc_plr->origin.x - 4;
+	}
+	if(CVAR_GET_FLOAT("cl_additivewpn")){
+		gEngfuncs.GetViewModel()->curstate.rendermode = kRenderTransAdd;
+	}
+	/*if(CVAR_GET_FLOAT("cl_myxhair") != 0){
+		spr = gEngfuncs.pfnSPR_Load("sprites/640hud1.spr");
+		xhair_size.bottom = -16;
+		xhair_size.left = -16;
+		xhair_size.right = 16;
+		xhair_size.top = 16;
+		gEngfuncs.pfnSetCrosshair(spr, xhair_size, 255, 255, 255);
+	}*/
+
 	int i;
 	int rendermode;
 

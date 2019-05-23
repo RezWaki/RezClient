@@ -30,7 +30,7 @@
 #include "..\game_shared\vgui_loadtga.h"
 #include "vgui_SpectatorPanel.h"
 #include <string.h>
-#include <Windows.h>
+//#include <Windows.h>
 #include <ctime>
 
 hud_player_info_t	 g_PlayerInfoList[MAX_PLAYERS+1];	   // player info from the engine
@@ -92,6 +92,8 @@ void ScorePanel::HitTestPanel::internalMousePressed(MouseCode code)
 		_inputSignalDar[i]->mousePressed(code,this);
 	}
 }
+
+CImageLabel* img_bk;
 
 //-----------------------------------------------------------------------------
 // Purpose: Create the ScoreBoard panel
@@ -180,6 +182,7 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 
 	// Set the width of the last column to be the remaining space.
 	int ex, ey, ew, eh;
+	int scr_x, scr_y, scr_w, scr_h;
 	m_HeaderGrid.GetEntryBox(NUM_COLUMNS - 2, 0, ex, ey, ew, eh);
 	m_HeaderGrid.SetColumnWidth(NUM_COLUMNS - 1, (wide - X_BORDER) - (ex + ew));
 
@@ -188,12 +191,11 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 	m_HeaderGrid.setParent(this);
 	m_HeaderGrid.setBgColor(0,0,0,255);
 
-
 	// Now setup the listbox with the actual player data in it.
 	int headerX, headerY, headerWidth, headerHeight;
 	m_HeaderGrid.getBounds(headerX, headerY, headerWidth, headerHeight);
 	m_PlayerList.setBounds(headerX, headerY+headerHeight, headerWidth, tall - headerY - headerHeight - 6);
-	m_PlayerList.setBgColor(0,0,0,255);
+	m_PlayerList.setBgColor(0,150,255,100);
 	m_PlayerList.setParent(this);
 
 	for(int row=0; row < NUM_ROWS; row++)
@@ -237,6 +239,10 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 	m_pCloseButton->setContentAlignment(Label::a_center);
 
 
+	img_bk = new CImageLabel("NULL", wide-73, tall-73);
+	img_bk->setParent(this);
+	img_bk->LoadImage("gfx/vgui/../../cl_dlls/background.tga");
+
 	Initialize();
 }
 
@@ -260,6 +266,8 @@ bool HACK_GetPlayerUniqueID( int iPlayer, char playerID[16] )
 	return !!gEngfuncs.GetPlayerUniqueID( iPlayer, playerID );
 }
 		
+bool first_time = FALSE;
+
 //-----------------------------------------------------------------------------
 // Purpose: Recalculate the internal scoreboard data
 //-----------------------------------------------------------------------------
@@ -303,6 +311,12 @@ void ScorePanel::Update()
 	{
 		 m_pCloseButton->setVisible ( false );
 	}
+	/*if(!first_time){
+		img_bk = new CImageLabel("NULL", 0, 0);
+		img_bk->setParent(this);
+		img_bk->LoadImage(CVAR_GET_STRING("cl_scrbrdimg"));
+		first_time = TRUE;
+	}*/
 	setBgColor( CVAR_GET_FLOAT("cl_scrbrd_r"), CVAR_GET_FLOAT("cl_scrbrd_g"), CVAR_GET_FLOAT("cl_scrbrd_b"), CVAR_GET_FLOAT("cl_scrbrd_a") );
 }
 

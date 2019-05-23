@@ -292,6 +292,8 @@ void DLLEXPORT IN_MouseEvent (int mstate)
 	mouse_oldbuttonstate = mstate;
 }
 
+cl_entity_s* mv_plr;
+
 /*
 ===========
 IN_MouseMove
@@ -315,8 +317,20 @@ void IN_MouseMove ( float frametime, usercmd_t *cmd)
 	{
 		GetCursorPos (&current_pos);
 
-		mx = current_pos.x - gEngfuncs.GetWindowCenterX() + mx_accum;
-		my = current_pos.y - gEngfuncs.GetWindowCenterY() + my_accum;
+		if(CVAR_GET_FLOAT("cl_fixmouse")){
+			if( mx = current_pos.x - gEngfuncs.GetWindowCenterX() + mx_accum > gEngfuncs.GetWindowCenterX() ){
+				mx = current_pos.x - gEngfuncs.GetWindowCenterX() + mx_accum * 2;
+				my = current_pos.y - gEngfuncs.GetWindowCenterY() + my_accum;
+			}
+			else{
+				mx = current_pos.x - gEngfuncs.GetWindowCenterX() + mx_accum;
+				my = current_pos.y - gEngfuncs.GetWindowCenterY() + my_accum;
+			}
+		}
+		else{
+			mx = current_pos.x - gEngfuncs.GetWindowCenterX() + mx_accum;
+			my = current_pos.y - gEngfuncs.GetWindowCenterY() + my_accum;
+		}
 
 		mx_accum = 0;
 		my_accum = 0;
@@ -410,6 +424,12 @@ void DLLEXPORT IN_Accumulate (void)
 
 			mx_accum += current_pos.x - gEngfuncs.GetWindowCenterX();
 			my_accum += current_pos.y - gEngfuncs.GetWindowCenterY();
+
+			if(CVAR_GET_FLOAT("cl_fixmouse")){
+				current_pos.x += 0.1;
+				current_pos.y = current_pos.y;
+				gEngfuncs.pfnSetMousePos(current_pos.x, current_pos.y);
+			}
 
 			// force the mouse to the center, so there's room to move
 			IN_ResetMouse();

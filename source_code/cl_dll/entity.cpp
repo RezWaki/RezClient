@@ -20,6 +20,7 @@
 #include "pm_defs.h"
 #include "pmtrace.h"	
 #include "pm_shared.h"
+#include <time.h>
 
 #define DLLEXPORT __declspec( dllexport )
 
@@ -41,7 +42,12 @@ extern "C"
 	struct cl_entity_s DLLEXPORT *HUD_GetUserEntity( int index );
 }
 
-BOOL cvars_defined = FALSE;
+BOOL cvars_defined = FALSE, is_started_rec = FALSE;
+
+//time stuff
+time_t _time;
+struct tm* time_info;
+char* dem_name;
 
 /*
 ========================
@@ -51,6 +57,16 @@ HUD_AddEntity
 */
 int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *modelname )
 {
+
+	/*if(!is_started_rec){
+		 time( &_time );
+		 time_info = localtime( &_time );
+		 sprintf(dem_name, "record demo_%s-%s-%s_%s-%s", time_info->tm_year, time_info->tm_mon, time_info->tm_mday,
+			 time_info->tm_hour, time_info->tm_min);
+		 gEngfuncs.pfnClientCmd( dem_name );
+		 is_started_rec = TRUE;
+	}*/
+		 
 
 	if(!cvars_defined){
 		CVAR_CREATE("cl_autojump", "1", NULL);
@@ -64,11 +80,19 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 		CVAR_CREATE("cl_drawteamscores", "1", NULL);
 		CVAR_CREATE("cl_speedometer", "1", NULL);
 		CVAR_CREATE("cl_hudcolor", "255 255 255 255", NULL);
-		CVAR_CREATE("cl_scoreboardcolor", "0 0 0 96", NULL);
+		CVAR_CREATE("cl_filtercolor", "255 100 0 100", NULL);
 		CVAR_CREATE("cl_scrbrd_r", "0", NULL);
 		CVAR_CREATE("cl_scrbrd_g", "0", NULL);
 		CVAR_CREATE("cl_scrbrd_b", "0", NULL);
 		CVAR_CREATE("cl_scrbrd_a", "96", NULL);
+		CVAR_CREATE("cl_newhands", "0", NULL);
+		CVAR_CREATE("cl_additivewpn", "0", NULL);
+		CVAR_CREATE("cl_fixmouse", "1", NULL);
+		CVAR_CREATE("cl_screenfilter", "0", NULL);
+		gEngfuncs.pfnClientCmd("exec userconfig.cfg");
+		ConsolePrint("RezClient v2.0 started!");
+		ConsolePrint("Visit github.com/rezwaki?tab=repositories for more fun stuff!");
+		gEngfuncs.pfnCenterPrint("RezClient v2.0");
 		cvars_defined = TRUE;
 	}
 

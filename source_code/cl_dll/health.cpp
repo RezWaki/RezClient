@@ -182,6 +182,7 @@ INT i, velocity_;
 cl_entity_s* plr_;
 hud_player_info_s* plr_inf;
 INT hud_clr[3];
+INT filter_clr[3];
 
 int CHudHealth::Draw(float flTime)
 {
@@ -219,6 +220,11 @@ int CHudHealth::Draw(float flTime)
 		plr_ = gEngfuncs.GetLocalPlayer();
 		velocity_ = ( (plr_->prevstate.origin.x - plr_->curstate.origin.x)+(plr_->prevstate.origin.y - plr_->curstate.origin.y) ) * 128;
 		gHUD.DrawHudNumber(ScreenWidth/2, ScreenHeight-32, HUD_ACTIVE, velocity_, hud_clr[0], hud_clr[1], hud_clr[2]);
+	}
+
+	if(CVAR_GET_FLOAT("cl_screenfilter")){
+		sscanf(CVAR_GET_STRING("cl_filtercolor"), "%i %i %i %i", &filter_clr[0], &filter_clr[1], &filter_clr[2], &filter_clr[3] );
+		gEngfuncs.pfnFillRGBA( 0, 0, ScreenWidth, ScreenHeight, filter_clr[0], filter_clr[1], filter_clr[2], filter_clr[3] );
 	}
 
 	int r, g, b;

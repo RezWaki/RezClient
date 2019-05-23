@@ -105,7 +105,8 @@ void SpectatorPanel::Initialize()
 	m_TimerImage = new CImageLabel( "timer", 0, 0, 14, 14 );
 	m_TimerImage->setParent(m_TopBorder);
 
-	m_TopBanner = new CImageLabel( "banner", 0, 0, XRES(BANNER_WIDTH), YRES(BANNER_HEIGHT) );
+	m_TopBanner = new CImageLabel( "banner", 0, 0 );
+	m_TopBanner->LoadImage("gfx/vgui/../../cl_dlls/background.tga");
 	m_TopBanner->setParent(this);
 
 	m_CurrentTime = new Label( "00:00", 0, 0, wide, YRES(PANEL_HEIGHT) );
